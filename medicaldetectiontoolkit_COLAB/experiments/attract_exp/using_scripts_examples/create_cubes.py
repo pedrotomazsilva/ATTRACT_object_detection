@@ -1,27 +1,23 @@
 from image_utilities.image_processing import split_image_into_cubes, save_cubes
-import scipy.io as sio
+from image_utilities.image_reading import read_image
 import numpy as np
 
 
-centroid_path = 'C:/Users/pedro/OneDrive - Universidade de Lisboa' \
-                '/Projetos/Projetos Python/ATTRACT/Marie_assignments/P6_SF_all_data.csv' # P6_ICAM2_all_data
-
-image_path = 'D:/iMM_Projeto/código/variables/P6/P6_double.mat'
+image_path = 'C:/Users/pedro/Desktop/images/czi/P6_ICAM2.czi'
+bbox_coords_path = 'C:/Users/pedro/Desktop/P6_coordinates.npy'
 
 out_data_dir_cubes='C:/Users/pedro/Desktop/data/train/img'
 out_data_dir_bboxes='C:/Users/pedro/Desktop/data/train/bboxes'
 
 
-image_dict = sio.loadmat(image_path)
-image = image_dict['img_3d_double']
+image = read_image(image_path, 'rgb')
 
-bboxes_coords = np.load('data/bbox_coordinates_P6.npy',allow_pickle=True)
-bboxes_coords = np.delete(bboxes_coords, 2,0) #delete nan row
+bboxes_coords = np.load(bbox_coords_path,allow_pickle=True)
+bboxes_coords = np.delete(bboxes_coords, np.where(bboxes_coords==None)[0],axis=0) #delete None rows
 
-cubes, cubes_bboxes = split_image_into_cubes(image, cubes_size=(256,256,32), bboxes_coords=bboxes_coords,
+
+cubes, cubes_bboxes = split_image_into_cubes(np.transpose(image,(1,2,3,0)), cubes_size=(256,256,32), bboxes_coords=bboxes_coords,
                                              bounding_box=True, no_overlap=True)
-
-
 
 save_cubes(out_data_dir_cubes=out_data_dir_cubes, out_data_dir_bbox=out_data_dir_bboxes,
            cubes=cubes, cubes_bbox=cubes_bboxes)
