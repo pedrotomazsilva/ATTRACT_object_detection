@@ -1,6 +1,4 @@
-from imutils.image_processing import split_image_into_cubes, save_cubes
-
-from datautils.data import centroid_data_reader
+from image_utilities.image_processing import split_image_into_cubes, save_cubes
 import scipy.io as sio
 import numpy as np
 
@@ -16,8 +14,6 @@ out_data_dir_bboxes='C:/Users/pedro/Desktop/data/train/bboxes'
 
 image_dict = sio.loadmat(image_path)
 image = image_dict['img_3d_double']
-
-#centroids = centroid_data_reader(centroid_path)
 
 bboxes_coords = np.load('data/bbox_coordinates_P6.npy',allow_pickle=True)
 bboxes_coords = np.delete(bboxes_coords, 2,0) #delete nan row
