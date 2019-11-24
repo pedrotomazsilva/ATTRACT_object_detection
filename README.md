@@ -25,7 +25,7 @@ In order to run the code I provide a link to a google colab kernel I developed a
 
 The data and cuda functions are provided through this link to my drive:
 
-cuda functions: `https://drive.google.com/open?id=1EZH3WRzIrfiSFfAyTjOH-gBCYeywvbL7`
+cuda functions: `https://drive.google.com/open?id=1Gz8BLWwfDXoHlOYQymPK4xSfdIhjaziP`
 
 data: `https://drive.google.com/open?id=1amkl3Th8FXpd36KSwPODVlWXXPY-T99n`
 
