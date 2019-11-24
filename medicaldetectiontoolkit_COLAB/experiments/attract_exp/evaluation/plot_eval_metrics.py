@@ -46,6 +46,8 @@ def plot_training_evolution(loss_dict):
     plt.show()
     return
 
+'''
 fold_dir = 'C:/Users/pedro/Desktop/medicaldetectiontoolkit_COLAB/experiments/attract_exp/fold_0'
 loss_dict=read_metrics(fold_dir)
 plot_training_evolution(loss_dict)
+'''
