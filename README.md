@@ -33,4 +33,7 @@ To set up the files in order to run the google colab kernel you will have to cre
 
 Some examples depicting the use of developed functions can be found in "attract_exp/using_scripts_examples". For bounding box creation you can check the instructions and functions provided in "attract_exp/bbox_utilities".
 
+You can find the original .czi images and converted .mat ones can be downloaded through this link:
+`https://drive.google.com/open?id=1_ObMgb5THeND_8fVmkxC-gEUmaf1acpN`
+
 For more instructions you can contact me by email: pedrotomaz20@gmail.com or by phone +351912057823. 
