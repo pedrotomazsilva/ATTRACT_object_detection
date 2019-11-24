@@ -15,7 +15,7 @@ For image/data handling and visualization:
 5. anotate bounding boxes
 
 For the deep learning model:
-1. configuration file
+1. model configuration file
 2. data loader
 3. plot training graphs 
 
