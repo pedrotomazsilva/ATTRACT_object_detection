@@ -268,7 +268,7 @@ def get_bboxes_coord(bboxes_coords, x_min, x_max, y_min, y_max, z_min, z_max):
 
 def split_image_into_cubes(img, cubes_size, bboxes_coords=None, bounding_box=False, no_overlap=True):
     """
-    :param img: shape (x,y,channels,z)
+    :param img: shape (channels, x,y,z)
     :param cubes_size: shape of the cubes ex: (256,256,32)
     :param bounding_box: return the bounding box coordinates for each roi in the cube
     :param no_overlap: Decide if we ant overlapping cubes to account fot the whole image
@@ -281,6 +281,7 @@ def split_image_into_cubes(img, cubes_size, bboxes_coords=None, bounding_box=Fal
 
     """
 
+    img = np.transpose(img, (1,2,0,3))
     cubes_per_x = img.shape[0] // cubes_size[0]
     cubes_per_y = img.shape[1] // cubes_size[1]
     cubes_per_z = img.shape[3] // cubes_size[2]

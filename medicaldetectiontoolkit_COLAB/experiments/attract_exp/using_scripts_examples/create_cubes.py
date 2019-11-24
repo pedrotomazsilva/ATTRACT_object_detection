@@ -10,13 +10,13 @@ out_data_dir_cubes='C:/Users/pedro/Desktop/data/train/img'
 out_data_dir_bboxes='C:/Users/pedro/Desktop/data/train/bboxes'
 
 
-image = read_image(image_path, 'rgb')
+image = read_image(image_path, rgb_order='rgb')
 
 bboxes_coords = np.load(bbox_coords_path,allow_pickle=True)
-bboxes_coords = np.delete(bboxes_coords, np.where(bboxes_coords==None)[0],axis=0) #delete None rows
+bboxes_coords = np.delete(bboxes_coords, np.where(bboxes_coords==None)[0],axis=0) #delete possible None rows
 
 
-cubes, cubes_bboxes = split_image_into_cubes(np.transpose(image,(1,2,3,0)), cubes_size=(256,256,32), bboxes_coords=bboxes_coords,
+cubes, cubes_bboxes = split_image_into_cubes(image, cubes_size=(256,256,32), bboxes_coords=bboxes_coords,
                                              bounding_box=True, no_overlap=True)
 
 save_cubes(out_data_dir_cubes=out_data_dir_cubes, out_data_dir_bbox=out_data_dir_bboxes,

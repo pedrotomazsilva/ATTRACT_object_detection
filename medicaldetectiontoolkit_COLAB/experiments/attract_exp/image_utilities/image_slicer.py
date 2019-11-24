@@ -56,6 +56,7 @@ class CubesSlicer(object):
     def __init__(self, ax, cubes, cubes_mask, image_cubes_dict=None, images_per_figure=4): #cubes shape MASK OR IMAGE: (n_cubes,x,y,3,z)
 
         self.ax = ax
+        self.ax[0].set_title('Click to change images and scroll to view depths\n')
         self.image_cubes_dict = image_cubes_dict
         self.images_per_figure = images_per_figure
         self.all_cubes = cubes
@@ -67,7 +68,6 @@ class CubesSlicer(object):
         self.ind = self.slices//2
         self.showed_cubes = 0
 
-        self.set_titles()
         self.showed_cubes = images_per_figure
         self.show_images()
         self.update()
@@ -80,48 +80,27 @@ class CubesSlicer(object):
             self.ind = (self.ind - 1) % self.slices
         self.update()
 
-    def set_titles(self):
-        for n_cubes in range(self.cubes.shape[0]):
-            if self.image_cubes_dict is not None:
-                i = self.showed_cubes + n_cubes
-                if i >= self.image_cubes_dict['P6'][0] and i <= self.image_cubes_dict['P6'][1]:
-                    image_name = 'P6'
-                elif i >= self.image_cubes_dict['P6_SF'][0] and i <= self.image_cubes_dict['P6_SF'][1]:
-                    image_name = 'P6_SF'
-                elif i >= self.image_cubes_dict['P6_AVM'][0] and i <= self.image_cubes_dict['P6_AVM'][1]:
-                    image_name = 'P6_AVM'
-                self.ax[0,n_cubes].set_title('Image %s' % image_name)
-
-            self.ax[0,n_cubes].set_yticklabels([])
-            self.ax[0,n_cubes].set_xticklabels([])
-            self.ax[1, n_cubes].set_yticklabels([])
-            self.ax[1, n_cubes].set_xticklabels([])
 
     def show_images(self):
         for i in range(self.cubes.shape[0]):
-            self.im[0].append(self.ax[0,i].imshow(self.cubes[i, :, :, :, self.ind]))
-            self.im[1].append(self.ax[1,i].imshow(self.cubes_mask[i, :, :, :, self.ind]))
+            self.im[0].append(self.ax[i].imshow(self.cubes[i, :, :, :, self.ind]))
 
     def onclick(self,event):
         self.cubes = self.all_cubes[self.showed_cubes:(self.showed_cubes+self.images_per_figure)]
         self.cubes_mask = self.all_cubes_mask[self.showed_cubes:(self.showed_cubes+self.images_per_figure)]
         self.showed_cubes += self.images_per_figure
-        self.set_titles()
         self.update()
 
     def update(self):
 
         for i in range(self.cubes.shape[0]):
-            self.im[1][i].set_data(self.cubes_mask[i, :, :, :, self.ind])
             self.im[0][i].set_data(self.cubes[i, :, :, :, self.ind])
 
 
         for i in range(self.cubes.shape[0]):
             self.im[0][i].axes.figure.canvas.draw()
-            self.im[1][i].axes.figure.canvas.draw()
 
-        self.ax[0,0].set_ylabel('slice %s' % self.ind)
-        self.ax[1,0].set_ylabel('slice %s' % self.ind)
+        self.ax[0].set_ylabel('slice %s' % self.ind)
 
 
 
@@ -147,9 +126,12 @@ def slicer(image, slice_cubes=False, channels_first=False):
 def slice_cubes(cubes,cubes_mask,images_per_figure = 4):
 
     cubes = np.transpose(cubes, (0,2,3,1,4))
-    cubes_mask = np.transpose(cubes_mask, (0,2,3,1,4))
+    if cubes_mask is not None:
+        cubes_mask = np.transpose(cubes_mask, (0,2,3,1,4))
+    else:
+        cubes_mask = np.zeros(cubes.shape)
 
-    fig, axes = plt.subplots(2, images_per_figure)
+    fig, axes = plt.subplots(1, images_per_figure)
     fig.subplots_adjust(hspace=0,wspace=0)
 
     slicer = CubesSlicer(axes, cubes, cubes_mask,None,images_per_figure)
