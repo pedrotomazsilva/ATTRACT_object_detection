@@ -31,4 +31,6 @@ data: `https://drive.google.com/open?id=1amkl3Th8FXpd36KSwPODVlWXXPY-T99n`
 
 To set up the files in order to run the google colab kernel you will have to create a directory in your own google drive called "Projetos". Then inside it you will have to upload the "medicaldetectiontoolkit_COLAB" folder with the cuda functions copied to "Projetos/medicaldetectiontoolkit_COLAB/" and the data copied to "Projetos/medicaldetectiontoolkit_COLAB/experiments/attract_exp/"
 
+Some examples depicting the use of developed functions can be found in "attract_exp/using_scripts_examples". For bounding box creation you can check the instructions and functions provided in "attract_exp/bbox_utilities".
+
 For more instructions you can contact me by email: pedrotomaz20@gmail.com or by phone +351912057823. 
