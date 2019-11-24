@@ -20,4 +20,10 @@ For the deep learning model:
 3. plot training graphs 
 
 In order to run the code I provide a link to a google colab kernel I developed and which you are free to edit and run through this link:
+
 `https://colab.research.google.com/drive/1hidNStmD3Jm2T_DhIaMi17mZWF-39_o2`
+
+The data and cuda functions are provided through this link to my drive:
+
+cuda functions: `https://drive.google.com/open?id=1EZH3WRzIrfiSFfAyTjOH-gBCYeywvbL7`
+data: `https://drive.google.com/open?id=1amkl3Th8FXpd36KSwPODVlWXXPY-T99n`
